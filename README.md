@@ -1,5 +1,10 @@
 # catCFDI
-Servicio rest con cache hazelcast hecho con Spring boot
+
+catalogos (catCFDI) restfull service/Database import tool/Hazelcast Cache distribuido
+
+Tecnologias: Spring Boot, Freemarker Templates/Hazelcast/Apache poi
+
+Java 1.8
 
 -De momento solo esta configurado (en application.properties) para que pueda importar y exponer via los caches y controlador solo el catalogo de c_Aduana, 
 puede seguir la configuracion (en application.properties) com guia e incorporar las faltantes.
