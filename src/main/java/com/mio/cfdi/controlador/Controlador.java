@@ -4,6 +4,8 @@
 package com.mio.cfdi.controlador;
 
 import java.io.File;
+import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -19,6 +21,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.RestController;
 
+import com.mio.cfdi.Catalogos;
 import com.mio.cfdi.servicio.IImportar;
 
 /**
@@ -29,6 +32,16 @@ import com.mio.cfdi.servicio.IImportar;
 @RequestMapping("catalogo")
 public class Controlador {
 	
+	/**
+	 * Catalogos permitidos, y se usa tambien para no procesar catalogos que no existen
+	 * se configura en application.properties valor default.hojas
+	 */
+    @Autowired
+    Catalogos catalogos;
+    
+    /**
+     * Implementacion de manejo de cache
+     */
 	@Autowired
 	@Qualifier("importarCache")
 	IImportar importarCache;
@@ -39,9 +52,17 @@ public class Controlador {
 	@Value("${default.ruta}")
     private File rutaArchivoCatCfdi;
 	
+	/**
+	 * Peticion de tipo GET que retorna un catalogo en especificado en nombreHoja
+	 * @param nombreHoja
+	 * @return JSON, proximamente XML
+	 */
 	@GetMapping(value="/{nombreHoja}", produces = "application/json")
     public @ResponseBody List<Map<String, Object>> lista(@PathVariable String nombreHoja) {
-		List<Map<String, Object>> registros = importarCache.cargaCatalogo(nombreHoja, rutaArchivoCatCfdi);
+		List<Map<String, Object>> registros = new ArrayList<Map<String, Object>>();
+		boolean permitido = Arrays.asList(catalogos.Lista()) 
+              .contains(nombreHoja); 
+		if (permitido) registros = importarCache.cargaCatalogo(nombreHoja, rutaArchivoCatCfdi);
         return registros;
     }
 	

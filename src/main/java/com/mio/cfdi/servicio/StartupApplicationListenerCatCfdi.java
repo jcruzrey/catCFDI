@@ -9,18 +9,20 @@ import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
-
 import org.apache.poi.EncryptedDocumentException;
 import org.apache.poi.openxml4j.exceptions.InvalidFormatException;
 import org.apache.poi.ss.usermodel.Sheet;
 import org.apache.poi.ss.usermodel.Workbook;
 import org.apache.poi.ss.usermodel.WorkbookFactory;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.ApplicationListener;
 import org.springframework.context.event.ContextRefreshedEvent;
 import org.springframework.stereotype.Component;
+import com.mio.cfdi.Catalogos;
 
 /**
  * @author jcruzrey
@@ -28,6 +30,8 @@ import org.springframework.stereotype.Component;
  */
 @Component
 public class StartupApplicationListenerCatCfdi implements ApplicationListener<ContextRefreshedEvent>{
+
+	private static final Logger logger = LoggerFactory.getLogger(StartupApplicationListenerCatCfdi.class);
 
 	@Autowired
 	@Qualifier("importarCache")
@@ -41,11 +45,10 @@ public class StartupApplicationListenerCatCfdi implements ApplicationListener<Co
 	
 	@Override
 	public void onApplicationEvent(ContextRefreshedEvent event) {
-		System.out.println("Procesando carga inicial de cache con origen " + rutaArchivoCatCfdi);
+		logger.info("Procesando carga inicial de cache con origen {}", rutaArchivoCatCfdi);
 		List<String> hojas = new ArrayList<String>();
 		try {
 			Workbook workbook = WorkbookFactory.create(rutaArchivoCatCfdi);
-
 			Iterator<Sheet> sheetIterator = workbook.sheetIterator();
 			while (sheetIterator.hasNext()) {
 				Sheet sheet = sheetIterator.next();
@@ -54,18 +57,16 @@ public class StartupApplicationListenerCatCfdi implements ApplicationListener<Co
 			workbook.close();
 			
 			for (String hoja : hojas) {
-				System.out.println("Procesando " + hoja + " ...");
+				logger.info("Procesando {} ...", hoja);
 				List<Map<String, Object>> data = importarCache.cargaCatalogo(hoja, rutaArchivoCatCfdi);
-				System.out.println("Se encontraron " + data.size() + " registros en la hoja " + hoja);
+				logger.info("Se encontraron {} registros en la hoja {}", data.size(), hoja);
 			}
 			
 			
 		} catch (EncryptedDocumentException | InvalidFormatException | IOException e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
-		System.out.println("Procesando carga inicial de cache con origen " + rutaArchivoCatCfdi + " finalizado.");
-		//importarCache.cargaInicial(rutaArchivoCatCfdi);
+		logger.info("Proceso de carga inicial de cache con origen {} finalizado.", rutaArchivoCatCfdi);
 	}
 
 }

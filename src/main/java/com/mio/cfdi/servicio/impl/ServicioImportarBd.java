@@ -4,11 +4,10 @@
 package com.mio.cfdi.servicio.impl;
 
 import java.io.File;
-import java.sql.SQLException;
 import java.util.List;
 import java.util.Map;
-
-import org.apache.poi.ss.usermodel.Sheet;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.beans.factory.annotation.Value;
@@ -22,7 +21,7 @@ import com.mio.cfdi.servicio.IImportar;
  */
 @Service("importarBd")
 public class ServicioImportarBd implements IImportar{
-	
+	private static final Logger logger = LoggerFactory.getLogger(ServicioImportarBd.class);
 	/*
 	 * posibles comandos
 	 * 1.- comando-vaciar
@@ -54,8 +53,7 @@ public class ServicioImportarBd implements IImportar{
 	 */
 	@Value("${sql.ejecutarvaciar}")
     private boolean bVaciar;
-    private Map<String, Object> config;
-
+   
 	@Override
 	public List<Map<String, Object>> cargaCatalogo(String nombreHoja, File rutaCatCfdi) {
 		// TODO Auto-generated method stub

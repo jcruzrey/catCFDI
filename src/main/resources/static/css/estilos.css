@@ -1,0 +1,49 @@
+body {  
+    width: 50%;
+    margin-left: auto;
+    margin-right: auto;
+}
+
+body * {  
+    font-weight: 400;
+}
+
+h1, h2 {
+
+    color:#ff4f57;
+
+}
+
+ 
+
+a {
+
+    color: #ff4f57;
+
+}
+
+ 
+
+table {
+
+    border-collapse: collapse;
+
+}
+
+ 
+
+table th, table td {
+
+    padding: 5px;
+
+}
+
+ 
+
+.error {
+
+    color: red;
+
+    font-weight: bold;
+
+}
