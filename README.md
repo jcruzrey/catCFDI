@@ -18,5 +18,7 @@ Siguientes Pasos:
 -Se planea realizar lo mismo que se hace de exponer en cache, solo que sera insertar en bd. Esto sera en la siguiente version.
 -Permitir retorno de valores en XML. De momento solo lo hace JSON.
 
-
+Durante la carga del contexto de la aplicacion, se podra ver el procesamiento de los catalogos como salidas en el log
+.m.c.s.StartupApplicationListenerCatCfdi : Procesando carga inicial de cache con origen C:\Users\jcruzrey\Documents\workspace-personal\cfdi\src\main\resources\origen\catCFDI.xls
+.m.c.s.StartupApplicationListenerCatCfdi : Procesando c_Aduana ...
 
