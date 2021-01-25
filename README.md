@@ -1,4 +1,4 @@
-# catCFDI - nombre del producto: Cache-CatCFDI
+# Cache-CatCFDI
 
 Servicio Rest de catalogos/Utileria de importacion hacia multiple bd/Hazelcast Cache distribuido
 
