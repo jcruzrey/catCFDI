@@ -22,3 +22,7 @@ Durante la carga del contexto de la aplicacion, se podra ver el procesamiento de
 .m.c.s.StartupApplicationListenerCatCfdi : Procesando carga inicial de cache con origen C:\Users\jcruzrey\Documents\workspace-personal\cfdi\src\main\resources\origen\catCFDI.xls
 .m.c.s.StartupApplicationListenerCatCfdi : Procesando c_Aduana ...
 
+Historial
+25 de Enero del 2021
+-Forma de importacion
+-Configuracion de otro catalogo en application properties
